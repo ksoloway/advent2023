@@ -68,10 +68,10 @@ func (t *Trie) getLeftNumber(s string) int {
 }
 
 func (t *Trie) getRightNumber(s string) int {
-	runes := []rune(s[0:])
 	for idx := len(s) - 1; idx > -1; idx-- {
-		if unicode.IsDigit(runes[idx]) {
-			return int(runes[idx] - '0')
+		char := rune(s[idx])
+		if unicode.IsDigit(char) {
+			return int(char - '0')
 		} else {
 			if value, exist := t.get(s[idx:min(idx+5, len(s))]); exist == true {
 				return value
@@ -89,11 +89,6 @@ func main() {
 
 	for idx, num := range number_list {
 		trie.insert(num, idx+1)
-	}
-	number_list2 := []string{"oness", "twos", "three3", "four4", "five1", "sixd", "sevens", "eighty", "nineo"}
-	for _, num := range number_list2 {
-		val, _ := trie.get(num)
-		fmt.Println(val)
 	}
 
 	file, err := os.Open("input2.txt")
